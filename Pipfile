@@ -1,0 +1,16 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+sympy = "*"
+numpy = ">=1.19.0"
+fractions = "*"
+IPython = "*"
+mathjax = "0.1.2"
+MpMath = "*"
+[requires]
+python_version = "3.8"
