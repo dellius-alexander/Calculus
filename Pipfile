@@ -6,11 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-sympy = "*"
+sympy = "1.6.2"
 numpy = ">=1.19.0"
-fractions = "*"
-IPython = "*"
+IPython = "7.18.1"
 mathjax = "0.1.2"
-MpMath = "*"
+MpMath = "1.1.0"
+
 [requires]
-python_version = "3.8"
+python_version = "3.8.6rc1"
