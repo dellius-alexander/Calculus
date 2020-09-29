@@ -1,7 +1,6 @@
 from sympy import init_printing, symbols, pretty, solve, pi, Integral, LC, \
-    factor, sqrt, pretty_print, exp, simplify, ln, exp
+    factor, sqrt, pretty_print, exp, simplify, ln, exp, log, sin, cos
 from numbers import Number
-from math import e
 
 #####################################################################
 init_printing(use_unicode='true')
@@ -464,15 +463,34 @@ def _compound_region2(fx, gx, lower_bound, upper_bound,
     respectively. Then, the area of R is given by
 
     - A = ∫[a, b] |f(x)−g(x)| dx  = A_1 + A_2
-        - c = x, if
 
     Looking at the graph above, we can see that the area of the region
-    A is comprised of two separate regions - one where f(x) is greater
-    than g(x) and one where g(x) is greater than f(x). Thus, we can
-    calculate the area of A by calculating two separate areas A1 and
-    A2 and adding them. Since f(x) and g(x) switch at their intersection
-    point, we need to calculate the intersection point between the two
-    functions that falls within our given interval.
+    A is comprised of two separate regions - we need to calculate the
+    intersection point "x" between the two functions that falls within our
+    given interval.
+
+    We must first combine the two functions to find the value of x where
+    the two function intersect and the combined solution of f(x) - g(x) = 0,
+    by setting f(x) = g(x) and simplifying, we obtain:
+
+    - f(x) - g(x) = 0, if x is some value that makes solution 0.
+
+    Next, we calculate |f(x) - g(x)| in each of the intervals [a, x]
+    and [x, b].
+
+    By observing the graph, if the first interval g(x) is above f(x) and
+    the second interval f(x) is above g(x) we calculate the interval as:
+
+    - A_1 = ∫ [a, x] (g(x) - f(x)) dx
+    - A_2 = ∫ [x, b] (f(x) - g(x)) dx
+    - A = A_1 + A_2, to find the area of the compound region
+
+    Else, if the first interval f(x) is above g(x) and
+    the second interval g(x) is above f(x) we calculate the interval as:
+
+    - A_1 = ∫ [a, x] (f(x) - g(x)) dx
+    - A_2 = ∫ [x, b] (g(x) - f(x)) dx
+    - A = A_1 + A_2, to find the area of the compound region
 
     :param fx:
     :param gx:
@@ -481,31 +499,46 @@ def _compound_region2(fx, gx, lower_bound, upper_bound,
     :param variable_of_integration:
     :return:
     """
+    e = symbols('e')
     _a_ = lower_bound
     _b_ = upper_bound
     _f_ = fx
     _g_ = gx
-    _var_ = variable_of_integration
-    _sol_ = solve(gx)
-    _c_ = 0
-    for k in range(_a_, _b_):
-        if (fx - gx).subs({_var_: k}) == exp or (fx - gx).subs({_var_: k}) == 0:
+    _v_ = variable_of_integration
+    _sol_ = solve(fx - gx)
+    print("\nIntersecting points: \n")
+    [pretty_print(l) for l in _sol_]
+    for k in _sol_:
+        print("\nIntersecting points: \n")
+        print("{0} = {1}".format(pretty((fx - gx)), pretty((fx - gx).subs({_v_: k}))))
+        if (fx - gx).subs({_v_: k}) == 0 or k == 0:
+            # pretty_print((fx - gx).subs({_v_: k}))
             _c_ = k
+            break
         else:
             _c_ = e
-    _area_1 = Integral(gx - fx, (_var_, _a_, _c_))
-    _area_1_sol_ = _area_1.doit()
-    _area_2 = Integral(fx - gx, (_var_, _c_, _b_))
-    _area_2_sol_ = _area_2.doit()
-    print("\nf({}) = \n".format(_var_))
+            break
+    if fx.subs({x: _a_}) > gx.subs({x: _a_}) and gx.subs({x: _b_}) > fx.subs({x: _b_}):
+        _area_1 = Integral(fx - gx, (_v_, _a_, _c_))
+        _area_1_sol_ = _area_1.doit()
+        _area_2 = Integral(gx - fx, (_v_, _c_, _b_))
+        _area_2_sol_ = _area_2.doit()
+    else:
+        _area_1 = Integral(gx - fx, (_v_, _a_, _c_))
+        _area_1_sol_ = _area_1.doit()
+        _area_2 = Integral(fx - gx, (_v_, _c_, _b_))
+        _area_2_sol_ = _area_2.doit()
+    print("\nf({}) = \n".format(_v_))
     pretty_print(fx)
-    print("\ng({}) = \n".format(_var_))
+    print("\ng({}) = \n".format(_v_))
     pretty_print(gx)
-    print("\nIntegral Area 1 = \n".format(_var_))
+    print("\nIntegral Area 1 = \n".format(_v_))
     pretty_print(_area_1)
+    print("\nArea 1 solution: \n")
     pretty_print(_area_1_sol_)
-    print("\nIntegral Area 2 = \n".format(_var_))
+    print("\nIntegral Area 2 = \n".format(_v_))
     pretty_print(_area_2)
+    print("\nArea 2 solution: \n")
     pretty_print(_area_2_sol_)
     print("\nArea = \n")
     pretty_print(_area_1_sol_ + _area_2_sol_)
@@ -519,9 +552,9 @@ def _compound_region2(fx, gx, lower_bound, upper_bound,
 if __name__ == "__main__":
     # main method
     x, y, t, e = symbols('x, y, t, e')
-    f = ln(x) + 5
-    g = -(2 * x / e) + 8
-    a = 1
-    b = 7
+    f = 4 - 3*sin(x/2)
+    g = 4 - 3*cos(x/2)
+    a = 0
+    b = (2*pi)/3
     _variable_ = x
     _compound_region2(f, g, a, b, _variable_)

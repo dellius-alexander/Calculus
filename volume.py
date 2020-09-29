@@ -458,7 +458,7 @@ def _linear_density_(px, lower_bound, upper_bound, variable_of_integration) -> o
             respectively, are
         - M_x = ρ ∫ [a, b] [f(x)]^2/2 dx
         and
-        -   M_y = ρ ∫ [a, b] x f(x) dx
+        - M_y = ρ ∫ [a, b] x f(x) dx
 
     - iii. The coordinates of the center of mass ( X̅, y̅ ) are:
         - X̅ = M_y/m  and  y̅ = M_x/m
@@ -495,7 +495,7 @@ def _radial_density_(px, radius, variable_of_integration) -> object:
     Let ρ(x) be an integrable function representing the radial density
     of a disk of radius r. Then the mass of the disk is given by:
 
-    -   m = ∫ [0, r] 2π x ρ(x) dx.
+    - m = ∫ [0, r] 2π x ρ(x) dx.
 
     :param px:
     :param radius:
