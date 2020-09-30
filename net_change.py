@@ -63,7 +63,7 @@ def _theorem_1(a, b, height, fa=None, fb=None, f_prime=None) -> object:
 #####################################################################
 #                           Net Change Theorem 2 - 4
 #####################################################################
-def _theorem_2(a, b, func, d_) -> object:
+def _theorem_2_(a, b, func, d_) -> object:
     """Net Change Theorem 1: states that the new value of a changing quantity
     equals the initial value plus the integral of the rate of change:
 
@@ -95,7 +95,7 @@ def _theorem_2(a, b, func, d_) -> object:
 #####################################################################
 #                           Net Change Theorem 5
 #####################################################################
-def _theorem_5(a, b, func, d_) -> object:
+def _theorem_5_(a, b, func, d_) -> object:
     """Net Change Theorem 5: states that the new value of a changing quantity
     equals the initial value plus the integral of the rate of change:
 

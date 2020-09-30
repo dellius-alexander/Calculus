@@ -50,7 +50,7 @@ def _display_(_obj_=object):
 #####################################################################
 #             Volume of Rectangular Prism
 #####################################################################
-def _rec_prism(length, width, height) -> object:
+def _rec_prism_(length, width, height) -> object:
     """Volume of a Rectangular Prism:
 
     V = lwh = length  width  height
@@ -71,7 +71,7 @@ def _rec_prism(length, width, height) -> object:
 #####################################################################
 #                            Volume Using Disks 1
 #####################################################################
-def volume_disk(fx, lower_bound, upper_bound, variable_of_integration) -> object:
+def _volume_disk_(fx, lower_bound, upper_bound, variable_of_integration) -> object:
     """The Disk Method:
 If a region in the plane is revolved about a line in the same
 plane, the resulting object is known as a solid of revolution.
@@ -124,7 +124,7 @@ and y = d, and is rotated about the y-axis. The resulting formula is:
 #####################################################################
 #     Volume Using Washers 1 - Around the x-Axis
 #####################################################################
-def volume_washer(fx, gx, lower_bound, upper_bound, variable_of_integration) -> object:
+def _volume_washer_(fx, gx, lower_bound, upper_bound, variable_of_integration) -> object:
     """ The washer method:
 
 If a region in the plane is revolved about a line in the same plane,
@@ -192,7 +192,7 @@ c ≤ y ≤ d  is given by the formula:
 #####################################################################
 #     Volumes by Cylindrical Shells: the Shell Method
 #####################################################################
-def cylindrical_shell(fx, gx, lower_bound, upper_bound, line_of_rotation,
+def _cylindrical_shell_(fx, gx, lower_bound, upper_bound, line_of_rotation,
                       variable_of_integration) -> object:
     """Volumes by Cylindrical Shells: the Shell Method.
 
@@ -279,7 +279,7 @@ about the x-axis).
 #####################################################################
 #           Arc Length
 #####################################################################
-def arc_length(fx, gx, lower_bound, upper_bound, line_of_rotation,
+def _arc_length_(fx, gx, lower_bound, upper_bound, line_of_rotation,
                variable_of_integration) -> object:
     """The Arc Length Function:
 
@@ -335,7 +335,7 @@ dx.
 #####################################################################
 #     Area of a Surface of Revolution
 #####################################################################
-def surface_area_of_revolution(fx, gx, lower_bound, upper_bound, line_of_rotation,
+def _surface_area_of_revolution_(fx, gx, lower_bound, upper_bound, line_of_rotation,
                                variable_of_integration) -> object:
     """Area of a Surface of Revolution:
 

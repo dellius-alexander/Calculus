@@ -1,6 +1,7 @@
 from sympy import symbols, init_printing, pretty_print, simplify, solve, \
     Integral, sqrt, sin, exp, ln, log, expand, Symbol, Function, \
-    pretty, cos
+    pretty, cos, pi, cot, csc, tan, sec, functions
+from sympy.functions.elementary import trigonometric
 from numbers import Number
 from fractions import Fraction
 import re
@@ -11,7 +12,7 @@ init_printing(use_unicode='true')
 #####################################################################
 #                   The Mean Value Theorem
 #####################################################################
-def _mean_value(fx, lower_bound, upper_bound,
+def _mean_value_(fx, lower_bound, upper_bound,
                 variable_of_integration, average_rate_change=None) -> object:
     """The Mean Value Theorem:
 
@@ -89,33 +90,35 @@ def _ftc_(fx, lower_bound, upper_bound,
     :param variable_of_integration:
     :return:
     """
-    a = lower_bound
-    b = upper_bound
+    a, b = symbols('a, b')
+    _a_ = lower_bound
+    _b_ = upper_bound
     _var_ = variable_of_integration
-    regex_a = re.findall("[xy]", str(a))
-    regex_b = re.findall("[xy]", str(b))
+    regex_a = re.findall("[xy]+(pi)", str(_a_))
+    regex_b = re.findall("[xy]", str(_b_))
     print("\nf({}) = \n".format(_var_))
     pretty_print(fx)
-    if not isinstance(a, Number) \
-            and not isinstance(b, Number):
+    if not isinstance(_a_, Number) \
+            and not isinstance(_b_, Number) \
+            and regex_a.__contains__(_a_):
         print("\na = \n")
-        pretty_print(a)
+        pretty_print(_a_)
         print("\nb = \n")
-        pretty_print(b)
+        pretty_print(_b_)
         print("\na'({0}) = \n".format(_var_))
-        if isinstance(a, Number):
-            pretty_print(a)
-            _variable_a = - fx.subs({_var_: a}) * a
+        if isinstance(_a_, Number):
+            pretty_print(_a_)
+            _variable_a = - fx.subs({_var_: _a_}) * _a_
         else:
-            pretty_print(a.diff())
-            _variable_a = - fx.subs({_var_: a}) * a.diff()
+            pretty_print(_a_.diff())
+            _variable_a = - fx.subs({_var_: _a_}) * _a_.diff()
         print("\nb'({0}) = \n".format(_var_))
-        if isinstance(b, Number):
-            pretty_print(b)
-            _variable_b = fx.subs({_var_: b}) * b
+        if isinstance(_b_, Number):
+            pretty_print(_b_)
+            _variable_b = fx.subs({_var_: _b_}) * _b_
         else:
-            pretty_print(b.diff())
-            _variable_b = fx.subs({_var_: b}) * b.diff()
+            pretty_print(_b_.diff())
+            _variable_b = fx.subs({_var_: _b_}) * _b_.diff()
         _solution_ = _variable_a + _variable_b
         print("\nf(a): \n")
         pretty_print(_variable_a)
@@ -124,22 +127,38 @@ def _ftc_(fx, lower_bound, upper_bound,
         print("\nf'({})\n".format(_var_))
         pretty_print(_solution_)
     else:
-        _integral_ = Integral(fx, (_var_, a, b))
+        _integral_ = Integral(fx, (_var_, _a_, _b_))
+        _demo_ = Integral(fx, (_var_, a, b))
+        _demo_sol_ = _demo_.doit()
         _int_sol_ = _integral_.doit()
-        _derivative_of_int_sol_ = _int_sol_.diff()
+        _derivative_of_int_sol_ = _int_sol_.doit()
+        print("\nIntegral Demo: \n")
+        pretty_print(_demo_)
+        print("\nIntegral Demo Solution: \n")
+        pretty_print(_demo_sol_)
         print("\nIntegral: \n")
         pretty_print(_integral_)
         print("\nIntegral Solution: \n")
         pretty_print(_int_sol_)
-        print("\nDerivative of the Integral: \n")
-        pretty_print(_derivative_of_int_sol_)
-        print("\nSimplified: \n")
-        pretty_print(expand(_derivative_of_int_sol_))
+        # print("\nDerivative of the Integral: \n")
+        # pretty_print(_derivative_of_int_sol_)
+        # print("\nSimplified: \n")
+        # pretty_print(expand(_derivative_of_int_sol_))
 
     #####################################################################
     #####################################################################
     #                           Main Method
     #####################################################################
 
+
+if __name__ == "__main__":
+    # main method
+    x, y, t, e = symbols('x, y, t, e')
+    f = 5*cot(x)*csc(x) + x
+    g = None
+    a = pi/4
+    b = pi/2
+    _variable_ = x
+    _ftc_(f, a, b, _variable_)
 
 

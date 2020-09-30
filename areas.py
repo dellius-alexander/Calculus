@@ -1,6 +1,7 @@
 from sympy import init_printing, symbols, pretty, solve, pi, Integral, LC, \
     factor, sqrt, pretty_print, exp, simplify, ln, exp, log, sin, cos
 from numbers import Number
+from fractions import Fraction
 
 #####################################################################
 init_printing(use_unicode='true')
@@ -10,7 +11,7 @@ init_printing(use_unicode='true')
 #####################################################################
 #                            Area of Square
 #####################################################################
-def square_(side=Number) -> object:
+def _square_(side=Number) -> object:
     """Area = a^2
     :param side: The length of the side
     """
@@ -25,13 +26,13 @@ def square_(side=Number) -> object:
 #####################################################################
 #                            Area of Triangle
 #####################################################################
-def triangle_(base, height) -> object:
+def _triangle_(base, height) -> object:
     """Area = ½ * b * h
     :param base: The length of the base of the triangle
     :param height: The length of the height of the triangle
     """
     print('\n')
-    print('Base: {0},\nHeight: {1}'.format(base, height))
+    print('Base: {0} \nHeight: {1}'.format(base, height))
     area = 1 / 2 * base * height
     print('Area of Triangle: {0}'.format(area))
     print('\n')
@@ -41,7 +42,7 @@ def triangle_(base, height) -> object:
 #####################################################################
 #                            Area of Circle
 #####################################################################
-def circle_(radius) -> object:
+def _circle_(radius) -> object:
     """Area = π * r^2
     :param radius: The radius of the circle
     """
@@ -57,7 +58,7 @@ def circle_(radius) -> object:
 #####################################################################
 #                            Area of Rectangle
 #####################################################################
-def rectangle_(length, width) -> object:
+def _rectangle_(length, width) -> object:
     """Area = l * w
     :param length: The length of the rectangle
     :param width: The width of the rectangle
@@ -73,7 +74,7 @@ def rectangle_(length, width) -> object:
 #####################################################################
 #                            Area of Parallelogram
 #####################################################################
-def parallelogram_(base, height) -> object:
+def _parallelogram_(base, height) -> object:
     """Area = b * h
     :param base: The length of the base
     :param height: The vertical length of the height
@@ -89,7 +90,7 @@ def parallelogram_(base, height) -> object:
 #####################################################################
 #                            Area of Trapezium
 #####################################################################
-def trapezium_(a, b, height) -> object:
+def _trapezium_(a, b, height) -> object:
     """Area = 1/2 * (a + b) * h
     :param a: The length of the short parallel side
     :param b: The length of the long parallel side
@@ -107,7 +108,7 @@ def trapezium_(a, b, height) -> object:
 #####################################################################
 #                            Area of Ellipse
 #####################################################################
-def ellipse_(a, b) -> object:
+def _ellipse_(a, b) -> object:
     """Area = π * a * b
     :param a: 1/2 minor axis
     :param b: 1/2 major axis
@@ -123,7 +124,7 @@ def ellipse_(a, b) -> object:
 #####################################################################
 #                            Area of Cube
 #####################################################################
-def cube_(a) -> object:
+def _cube_(a) -> object:
     """Area = 6 * a^2
     :param a: The length of the edge
     """
@@ -138,7 +139,7 @@ def cube_(a) -> object:
 #####################################################################
 #                            Area of Rectangular Prism
 #####################################################################
-def rectangular_prism_(length, width, height) -> object:
+def _rectangular_prism_(length, width, height) -> object:
     """Area = 2 * (w * l + h * l + h * w)
     :param length: The length
     :param width: The width
@@ -155,7 +156,7 @@ def rectangular_prism_(length, width, height) -> object:
 #####################################################################
 #                            Area of Cylinder
 #####################################################################
-def cylinder_(radius, height) -> object:
+def _cylinder_(radius, height) -> object:
     """Area = 2 * π * r * (r + h)
     :param radius: The redius of the circular base
     :param height: The height of the cylinder
@@ -171,7 +172,7 @@ def cylinder_(radius, height) -> object:
 #####################################################################
 #                            Area of Cone
 #####################################################################
-def cone_(radius, height) -> object:
+def _cone_(radius, height) -> object:
     """Area = π * r * (r + l)
     :param radius: The radius of the circular base
     :param height: The slant height
@@ -187,7 +188,7 @@ def cone_(radius, height) -> object:
 #####################################################################
 #                            Area of Sphere
 #####################################################################
-def sphere_(radius) -> object:
+def _sphere_(radius) -> object:
     """Area = 4 * π * r^2
     :param radius: The radius of the sphere
     """
@@ -202,7 +203,7 @@ def sphere_(radius) -> object:
 #####################################################################
 #                            Area of Hemisphere
 #####################################################################
-def hemisphere_(radius) -> object:
+def _hemisphere_(radius) -> object:
     """Area = 3 * π * r^2
     :param radius: The radius of the hemisphere
     """
@@ -217,7 +218,7 @@ def hemisphere_(radius) -> object:
 #####################################################################
 #                            Area betwen the curve 1
 #####################################################################
-def bet_curve_1(fx, gx, a, b, d_) -> object:
+def _bet_curve_1(fx, gx, a, b, d_) -> object:
     """Area between Curves 1: Graphs and Integrals.
 
     We developed the concept of the definite integral to calculate
@@ -302,7 +303,7 @@ def bet_curve_1(fx, gx, a, b, d_) -> object:
 #####################################################################
 #                            Area between the curve 2
 #####################################################################
-def bet_curve_2(fx, gx, a, b, d_) -> object:
+def _bet_curve_2_(fx, gx, a, b, d_) -> object:
     """Area between Curves 2: Area Bounded by Linear Functions.
 
     We developed the concept of the definite integral to calculate
@@ -452,8 +453,8 @@ def bet_curve_2(fx, gx, a, b, d_) -> object:
 #####################################################################
 #  Area of Compound Regions 2 - Transcendental Functions
 #####################################################################
-def _compound_region2(fx, gx, lower_bound, upper_bound,
-                      variable_of_integration) -> object:
+def _compound_region2_(fx, gx, lower_bound, upper_bound,
+                       variable_of_integration) -> object:
     """Find The Area Bounded Above Or Below By Functions Where
     Integrating Results In A Natural Logarithmic Function:
 
@@ -552,9 +553,12 @@ def _compound_region2(fx, gx, lower_bound, upper_bound,
 if __name__ == "__main__":
     # main method
     x, y, t, e = symbols('x, y, t, e')
-    f = 4 - 3*sin(x/2)
-    g = 4 - 3*cos(x/2)
-    a = 0
-    b = (2*pi)/3
+    f = x**Fraction(2/3).limit_denominator()
+    g = -1+x
+    a = 2
+    b = 3
     _variable_ = x
-    _compound_region2(f, g, a, b, _variable_)
+    # _compound_region2_(f, g, a, b, _variable_)
+    pretty_print(# Fraction(_rectangle_(4, 2)).limit_denominator() + \
+                 # Fraction(_triangle_(5, 5)).limit_denominator() +\
+                 Fraction(_triangle_(3, 6)).limit_denominator())
