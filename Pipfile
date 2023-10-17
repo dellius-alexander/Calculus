@@ -1,0 +1,28 @@
+#  Pipfile contains the specification for the project top-level requirements
+#  and any desired specifiers. This file is managed by the developers invoking
+#  pipenv commands. The Pipfile uses inline tables and the TOML Spec.
+#
+#  Pipfile.lock replaces the requirements.txt file used in most Python projects
+#  and adds security benefits of tracking the packages hashes that were last locked.
+#  This file is managed automatically through locking actions.
+#
+#  You should add both Pipfile and Pipfile.lock to the project’s source control.
+#  https://pipenv.pypa.io/en/latest/basics/#example-pipfile
+#  https://pipenv.pypa.io/en/latest/pipfile/#example-pipfile-lock
+
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+sympy = "==1.6.2"
+numpy = ">=1.19.0"
+ipython = "==7.18.1"
+mathjax = "==0.1.2"
+mpmath = "==1.1.0"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"

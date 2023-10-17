@@ -1,0 +1,5 @@
+sympy==1.6.2
+numpy>=1.19.0
+IPython==7.18.1
+mathjax==0.1.2
+MpMath==1.1.0
