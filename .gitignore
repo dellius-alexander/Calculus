@@ -1,3 +1,10 @@
 venv/**
 !venv
 .idea
+tests/logs/**
+!tests/logs
+tests/reports/**
+!tests/reports
+tests/screenshots/**
+!tests/screenshots
+tests/.pytest_cache
