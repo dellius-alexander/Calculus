@@ -167,55 +167,19 @@ class Integrate:
 class MultipleIntegral:
     intervals: [tuple]
     functions: [Function] = []
-    variables: [Symbol]
+    variables: [Symbol] = []
     integrals: [Integral] = []
     results: [Union[Function, Integral, Rational, Sum, Derivative, Symbol, Matrix, list, dict]] = []
     anti_derivatives: [Integral] = []
     _type: str = ""
 
-    def __init__(self, func: Function = None, variables: [Symbol] = None,
-                 intervals: [tuple] = None, **kwargs):
-        """Class for computing Double/Multiple Integrals over a region R and S.
+    def __init__(self, func: Function = None, variables=None, intervals: [tuple] = None, **kwargs):
+        """Class for computing Double/Multiple Integrals over a region R.
 
-        Double/Multiple Integrals and Limits of Integration:
+        Iterated Integrals and Limits of Integration:
 
-        If f(x, y) is defined on a rectangular region R = {(x, y) | a <= x <= b, c <= y <= d}, we divide R into fxyz
-        sub-rectangles R_ij of equal width ∆x = (b-a)/fxyz and equal height ∆y = (d-c)/m. We choose sample points (x_*ij, y_*ij)
-        in each sub-rectangle and form the double Riemann sum:
-
-        - R = fxyz∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
-
-        and take the limit of such sums as fxyz, m --> ∞ to obtain the double integral of f over R and S:
-
-        - R = d∫c b∫a f(x, y) dx dy = lim fxyz, m --> ∞ fxyz∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
-
-        - S = b∫a d∫c f(x, y) dy dx = lim fxyz, m --> ∞ fxyz∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
-
-        In the special case where f(x, y) > 0, the double Riemann sum can be interpreted as the sum of the volumes of the
-        approximating rectangular boxes, and d∫c b∫a f(x, y) dx dy represents the volume under the surface z = f(x, y) over
-        the region R.
-
-        --------------------------------------------------------------------------------------------------------------------
-
-        Triple Integrals and Limits of Integration:
-
-        If f(x, y, z) is defined on a rectangular box B = {(x, y, z) | a <= x <= b, c <= y <= d, r <= z <= s}, we divide B
-        into fxyz sub-rectangles R_ijk of equal width ∆x = (b-a)/fxyz, equal height ∆y = (d-c)/m, and equal depth ∆z = (s-r)/n.
-        We choose sample points (x_*ijk, y_*ijk, z_*ijk) in each sub-rectangle and form the triple Riemann sum:
-
-        - B = fxyz∑i=1 m∑j=1 n∑k=1 f(x_*ijk, y_*ijk, z_*ijk)∆x∆y∆z
-
-        and take the limit of such sums as fxyz, m, n --> ∞ to obtain the triple integral of f over B:
-
-        - B = s∫r d∫c b∫a f(x, y, z) dx dy dz = lim fxyz, m, n --> ∞ fxyz∑i=1 m∑j=1 n∑k=1 f(x_*ijk, y_*ijk, z_*ijk)∆x∆y∆z
-
-        In the special case where f(x, y, z) > 0, the triple Riemann sum can be interpreted as the sum of the volumes of the
-        approximating rectangular boxes, and s∫r d∫c b∫a f(x, y, z) dx dy dz represents the volume under the surface
-        z = f(x, y, z) over the region B.
-
-        --------------------------------------------------------------------------------------------------------------------
-
-        Iterated Integrals and Limits of Integration: (Over a Region R^n)
+        - Let f: f(x,y,...,n) -> R^N , where n is in the set of variables defined on a region
+        R = {(x,y,...,N_n) | a_1 <= x <= b_1, a_2 <= y <= b_2, ..., a_n <= N_n <= b_n}.
 
         If f(x_1, x_2, ..., x_n) is defined on a rectangular region R = {(x_1, x_2, ..., x_n) | a_1 <= x_1 <= b_1,
         a_2 <= x_2 <= b_2, ..., a_n <= x_n <= b_n}, we divide R into fxyz sub-rectangles R_i1i2...in of equal width
@@ -237,7 +201,7 @@ class MultipleIntegral:
 
         Args:
             func: the function to be integrated over the region R and S
-            variables: the variables of integration, default: x and y
+            variables: [Symbol] the variables of integration, default: x and y
             intervals: the set of tuples of the form (a, b) for the Region R and
                             (c, d) for the Region S, default: [(0, -oo), (0, oo)]
             **kwargs: type: the type of integral to be computed, default: double,
@@ -254,6 +218,8 @@ class MultipleIntegral:
 
         """
         # initialize parameters in case they are None
+        if variables is None:
+            variables = [x, y]
         if func is None:
             func = [x ** 2 + y ** 2, x ** 2 + y ** 2]
         if variables is None:
