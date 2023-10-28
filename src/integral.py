@@ -205,16 +205,11 @@ class MultipleIntegral:
             intervals: the set of tuples of the form (a, b) for the Region R and
                             (c, d) for the Region S, default: [(0, -oo), (0, oo)]
             **kwargs: type: the type of integral to be computed, default: double,
+                            options: double, triple, multiple, iterated, volume, surface_area, mass, center_of_mass,
+                            moment_of_inertia, work, average_value, average_height, average_distance, average_radius,
+                            average_width, average_length, average_depth, average_volume, average_surface_area,
 
-                        method: the method of integration to be used, default: riemann_sum
-                        show_steps: whether to show the steps of the computation, default: False
-                        depth: the depth of the recursion, default: 0
-                        max_depth: the maximum depth of the recursion, default: 100
-                        max_steps: the maximum number of steps to be taken, default: 1000
-                        max_time: the maximum time to be taken, default: 10
-                        max_error: the maximum error to be tolerated, default: 0.001
-                        max_precision: the maximum precision to be used, default: 100
-                        max_terms: the maximum number of terms to be used in a series, default: 100
+                            Notes: Not all options are available for all types of integrals.
 
         """
         # initialize parameters in case they are None
