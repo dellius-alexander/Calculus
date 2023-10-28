@@ -114,7 +114,7 @@ class Integrate:
     variable: Symbol
     integral: Integral
     result: Union[Function, Integral, Rational, Sum, Derivative, Symbol, Matrix, list, dict]
-    temp: Integral
+    anti_derivative: Integral
 
     def __init__(self, function: Function = (x ** 2) + (y ** 2), variable: Symbol = x, interval: tuple = (0, oo)):
         """
@@ -130,7 +130,7 @@ class Integrate:
         self.variable = variable
         self.interval = interval
         self.integral = Integral(self.function, (self.variable, self.interval[0], self.interval[1]))
-        self.temp = Integral(self.function, self.variable)
+        self.anti_derivative = Integral(self.function, self.variable)
         self.result = self.integral.doit()
 
         print(f"Function: f({variable}) = ")
@@ -142,11 +142,10 @@ class Integrate:
         pprint(self.integral, wrap_line=False)
         print()
         print("Anti-derivative: ")
-        pprint(self.temp.doit(), wrap_line=False)
+        pprint(self.anti_derivative.doit(), wrap_line=False)
         print()
         print("Result: ")
         pprint(self.result, wrap_line=False)
-        del self.temp
 
     def __dict__(self):
         return {
@@ -166,13 +165,12 @@ class Integrate:
 
 
 class MultipleIntegral:
-
     intervals: [tuple]
     functions: [Function] = []
     variables: [Symbol]
-    integrals: list[Integral] = []
+    integrals: [Integral] = []
     results: [Union[Function, Integral, Rational, Sum, Derivative, Symbol, Matrix, list, dict]] = []
-    temp: [Integral] = []
+    anti_derivatives: [Integral] = []
     _type: str = ""
 
     def __init__(self, func: Function = None, variables: [Symbol] = None,
@@ -262,10 +260,39 @@ class MultipleIntegral:
             variables = [x, y]
         if intervals is None:
             intervals = [(0, -oo), (0, oo)]
+        self.integrate(func, variables, intervals, **kwargs)
+        self.print_data()
+
+    def __dict__(self):
+        return {
+            "function": self.functions,
+            "variables": self.variables,
+            "intervals": self.intervals,
+            "integrals": self.integrals,
+            "anti-derivatives": [a.doit() for a in self.anti_derivatives],
+            "results": [self.results[0], self.results[1]]
+        }
+
+    def __str__(self):
+        return json.dumps(
+            self.__dict__(),
+            default=lambda o: o.__dict__() if hasattr(o, '__dict__()') else o.__str__(),
+            indent=4)
+
+    def integrate(self, func: Function = None, variables: [Symbol] = None,
+                  intervals: [tuple] = None, **kwargs):
+        # initialize parameters in case they are None
+        if func is None:
+            func = [x ** 2 + y ** 2, x ** 2 + y ** 2]
+        if variables is None:
+            variables = [x, y]
+        if intervals is None:
+            intervals = [(0, -oo), (0, oo)]
         self._type = kwargs.get("type", "double")
         self.functions.append(func)
         self.variables = variables
         self.intervals = intervals
+        _temp = []
         # iterate over the interval for each variable
         for i in range(len(self.variables)):
             self.integrals.append(
@@ -276,27 +303,11 @@ class MultipleIntegral:
             )
             temp = self.integrals[i].doit()
             self.results.append(temp)
-            self.temp.append(Integral(func, variables[i]))
+            _temp.append(Integral(func, variables[i]))
             func = temp
             self.functions.append(func)
-        # print the values
-        self.print_data()
-
-    def __dict__(self):
-        return {
-            "function": self.functions,
-            "variables": self.variables,
-            "intervals": self.intervals,
-            "integrals": self.integrals,
-            "anti-derivatives": [self.temp[0].doit(), self.temp[1].doit()],
-            "results": [self.results[0], self.results[1]]
-        }
-
-    def __str__(self):
-        return json.dumps(
-            self.__dict__(),
-            default=lambda o: o.__dict__() if hasattr(o, '__dict__()') else o.__str__(),
-            indent=4)
+        self.anti_derivatives = _temp
+        return self.results[-1]
 
     def print_data(self):
         """
@@ -318,11 +329,12 @@ class MultipleIntegral:
             print(") = \n")
             pprint(self.functions[i], wrap_line=False)
         for i in range(len(self.variables)):
-            print(f"\n\nIntegral with respect to {self.variables[i]}: \n")
+            print(f"\n\nIntegral with respect to {self.variables[i]}:  {self.intervals[i][0]} ∫ {self.intervals[i][1]} "
+                  f"f({self.variables[i]}) =\n")
             pprint(self.integrals[i], wrap_line=False)
         for i in range(len(self.variables)):
-            print(f"\n\nAnti-derivative with respect to {self.variables[i]}: \n")
-            pprint(self.temp[i].doit(), wrap_line=False)
+            print(f"\n\nAnti-derivative with respect to {self.variables[i]}: F'({self.variables[i]}) =\n")
+            pprint(self.anti_derivatives[i].doit(), wrap_line=False)
         for i in range(len(self.variables)):
             print(f"\n\nResult with respect to {self.variables[i]}: \n")
             pprint(self.results[i], wrap_line=False)
