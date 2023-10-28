@@ -75,8 +75,10 @@ if __name__ == "__main__":
         (0, 10),  # 0  -> 15
         (0, 1 + x + y),  # 1  -> 16 #
     ]
-    m = 16
+    f_index = 16
+    x_index = 16
+    y_index = 16
     z_index = 1
     ######################################################################
-    fxy_1 = MultipleIntegral(f[m], [z, y, x], [z_interval[z_index], y_interval[m], x_interval[m]])
+    fxy_1 = MultipleIntegral(f[f_index], [z, y, x], [z_interval[z_index], y_interval[y_index], x_interval[x_index]])
     ######################################################################
