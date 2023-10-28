@@ -15,14 +15,20 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 name = "pypi"
 
+
 [packages]
 sympy = "==1.6.2"
 numpy = ">=1.19.0"
 ipython = "==7.18.1"
 mathjax = "==0.1.2"
 mpmath = "==1.1.0"
+matplotlib = "==3.3.2"
 
 [dev-packages]
 
 [requires]
 python_version = "3.9"
+
+[options.packages.find]
+where = "src"
+

@@ -1,12 +1,12 @@
 """First let’s recall the basic facts concerning definite integrals of function of a single variable. If f(x) is
-defined for a <= x <= b, we start by dividing the interval [a, b] into n sub-intervals [x_i-1, x_i] of equal width
-∆x = (b-a)/n, and we choose sample points x_*i in these sub-intervals. Then we form the Riemann sum:
+defined for a <= x <= b, we start by dividing the interval [a, b] into fxyz sub-intervals [x_i-1, x_i] of equal width
+∆x = (b-a)/fxyz, and we choose sample points x_*i in these sub-intervals. Then we form the Riemann sum:
 
-R = n∑i=1 f(x_*i)∆x
+R = fxyz∑i=1 f(x_*i)∆x
 
-and take the limit of such sums as n --> ∞  to obtain the definite integral of f from a to b:
+and take the limit of such sums as fxyz --> ∞  to obtain the definite integral of f from a to b:
 
-b∫a f(x) dx = lim n --> ∞ n∑i=1 f(x_*i)∆x
+b∫a f(x) dx = lim fxyz --> ∞ fxyz∑i=1 f(x_*i)∆x
 
 In the special case where f(x) > 0, the Riemann sum can be interpreted as the sum of the areas of the approximating
 rectangles, and b∫a f(x) dx represents the area under the curve y = f(x) from a to b.
@@ -32,15 +32,15 @@ where F(x, y) = d∫c f(x, y) dy is the indefinite integral of f(x, y) with resp
 ------------------------------------------------------------------------------------------------------------------------
 Double Integrals and Limits of Integration:
 
-If f(x, y) is defined on a rectangular region R = {(x, y) | a <= x <= b, c <= y <= d}, we divide R into n
-sub-rectangles R_ij of equal width ∆x = (b-a)/n and equal height ∆y = (d-c)/m. We choose sample points (x_*ij, y_*ij)
+If f(x, y) is defined on a rectangular region R = {(x, y) | a <= x <= b, c <= y <= d}, we divide R into fxyz
+sub-rectangles R_ij of equal width ∆x = (b-a)/fxyz and equal height ∆y = (d-c)/m. We choose sample points (x_*ij, y_*ij)
 in each sub-rectangle and form the double Riemann sum:
 
-R = n∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
+R = fxyz∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
 
-and take the limit of such sums as n, m --> ∞ to obtain the double integral of f over R:
+and take the limit of such sums as fxyz, m --> ∞ to obtain the double integral of f over R:
 
-d∫c b∫a f(x, y) dx dy = lim n, m --> ∞ n∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
+d∫c b∫a f(x, y) dx dy = lim fxyz, m --> ∞ fxyz∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
 
 In the special case where f(x, y) > 0, the double Riemann sum can be interpreted as the sum of the volumes of the
 approximating rectangular boxes, and d∫c b∫a f(x, y) dx dy represents the volume under the surface z = f(x, y) over
@@ -80,14 +80,14 @@ the region R.
 Triple Integrals and Limits of Integration:
 
 If f(x, y, z) is defined on a rectangular box B = {(x, y, z) | a <= x <= b, c <= y <= d, r <= z <= s}, we divide B into
-n sub-rectangular boxes B_ijk of equal width ∆x = (b-a)/n, equal height ∆y = (d-c)/m, and equal depth ∆z = (s-r)/p.
+fxyz sub-rectangular boxes B_ijk of equal width ∆x = (b-a)/fxyz, equal height ∆y = (d-c)/m, and equal depth ∆z = (s-r)/p.
 We choose sample points (x_*ijk, y_*ijk, z_*ijk) in each sub-rectangle and form the triple Riemann sum:
 
-R = n∑i=1 m∑j=1 p∑k=1 f(x_*ijk, y_*ijk, z_*ijk)∆x∆y∆z
+R = fxyz∑i=1 m∑j=1 p∑k=1 f(x_*ijk, y_*ijk, z_*ijk)∆x∆y∆z
 
-and take the limit of such sums as n, m, p --> ∞ to obtain the triple integral of f over B:
+and take the limit of such sums as fxyz, m, p --> ∞ to obtain the triple integral of f over B:
 
-s∫r d∫c b∫a f(x, y, z) dx dy dz = lim n, m, p --> ∞ n∑i=1 m∑j=1 p∑k=1 f(x_*ijk, y_*ijk, z_*ijk)∆x∆y∆z
+s∫r d∫c b∫a f(x, y, z) dx dy dz = lim fxyz, m, p --> ∞ fxyz∑i=1 m∑j=1 p∑k=1 f(x_*ijk, y_*ijk, z_*ijk)∆x∆y∆z
 
 In the special case where f(x, y, z) > 0, the triple Riemann sum can be interpreted as the sum of the volumes of the
 approximating rectangular boxes, and s∫r d∫c b∫a f(x, y, z) dx dy dz represents the volume under the surface
@@ -165,96 +165,122 @@ class Integrate:
             indent=4)
 
 
-class DoubleIntegral:
-    """Class for computing Double Integrals over a region R and S.
+class MultipleIntegral:
 
-    Double Integrals and Limits of Integration:
-
-    If f(x, y) is defined on a rectangular region R = {(x, y) | a <= x <= b, c <= y <= d}, we divide R into n
-    sub-rectangles R_ij of equal width ∆x = (b-a)/n and equal height ∆y = (d-c)/m. We choose sample points (x_*ij, y_*ij)
-    in each sub-rectangle and form the double Riemann sum:
-
-    R = n∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
-
-    and take the limit of such sums as n, m --> ∞ to obtain the double integral of f over R and S:
-
-    R = d∫c b∫a f(x, y) dx dy = lim n, m --> ∞ n∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
-
-    S = b∫a d∫c f(x, y) dy dx = lim n, m --> ∞ n∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
-
-    In the special case where f(x, y) > 0, the double Riemann sum can be interpreted as the sum of the volumes of the
-    approximating rectangular boxes, and d∫c b∫a f(x, y) dx dy represents the volume under the surface z = f(x, y) over
-    the region R.
-
-    """
     intervals: [tuple]
     functions: [Function] = []
     variables: [Symbol]
     integrals: list[Integral] = []
     results: [Union[Function, Integral, Rational, Sum, Derivative, Symbol, Matrix, list, dict]] = []
     temp: [Integral] = []
+    _type: str = ""
 
-    def __init__(self, function: Function = None, variables: [Symbol] = None,
-                 intervals: [tuple] = None):
-        """
-        Class for computing Double Integrals over a region R and S.
+    def __init__(self, func: Function = None, variables: [Symbol] = None,
+                 intervals: [tuple] = None, **kwargs):
+        """Class for computing Double/Multiple Integrals over a region R and S.
+
+        Double/Multiple Integrals and Limits of Integration:
+
+        If f(x, y) is defined on a rectangular region R = {(x, y) | a <= x <= b, c <= y <= d}, we divide R into fxyz
+        sub-rectangles R_ij of equal width ∆x = (b-a)/fxyz and equal height ∆y = (d-c)/m. We choose sample points (x_*ij, y_*ij)
+        in each sub-rectangle and form the double Riemann sum:
+
+        - R = fxyz∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
+
+        and take the limit of such sums as fxyz, m --> ∞ to obtain the double integral of f over R and S:
+
+        - R = d∫c b∫a f(x, y) dx dy = lim fxyz, m --> ∞ fxyz∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
+
+        - S = b∫a d∫c f(x, y) dy dx = lim fxyz, m --> ∞ fxyz∑i=1 m∑j=1 f(x_*ij, y_*ij)∆x∆y
+
+        In the special case where f(x, y) > 0, the double Riemann sum can be interpreted as the sum of the volumes of the
+        approximating rectangular boxes, and d∫c b∫a f(x, y) dx dy represents the volume under the surface z = f(x, y) over
+        the region R.
+
+        --------------------------------------------------------------------------------------------------------------------
+
+        Triple Integrals and Limits of Integration:
+
+        If f(x, y, z) is defined on a rectangular box B = {(x, y, z) | a <= x <= b, c <= y <= d, r <= z <= s}, we divide B
+        into fxyz sub-rectangles R_ijk of equal width ∆x = (b-a)/fxyz, equal height ∆y = (d-c)/m, and equal depth ∆z = (s-r)/n.
+        We choose sample points (x_*ijk, y_*ijk, z_*ijk) in each sub-rectangle and form the triple Riemann sum:
+
+        - B = fxyz∑i=1 m∑j=1 n∑k=1 f(x_*ijk, y_*ijk, z_*ijk)∆x∆y∆z
+
+        and take the limit of such sums as fxyz, m, n --> ∞ to obtain the triple integral of f over B:
+
+        - B = s∫r d∫c b∫a f(x, y, z) dx dy dz = lim fxyz, m, n --> ∞ fxyz∑i=1 m∑j=1 n∑k=1 f(x_*ijk, y_*ijk, z_*ijk)∆x∆y∆z
+
+        In the special case where f(x, y, z) > 0, the triple Riemann sum can be interpreted as the sum of the volumes of the
+        approximating rectangular boxes, and s∫r d∫c b∫a f(x, y, z) dx dy dz represents the volume under the surface
+        z = f(x, y, z) over the region B.
+
+        --------------------------------------------------------------------------------------------------------------------
+
+        Iterated Integrals and Limits of Integration: (Over a Region R^n)
+
+        If f(x_1, x_2, ..., x_n) is defined on a rectangular region R = {(x_1, x_2, ..., x_n) | a_1 <= x_1 <= b_1,
+        a_2 <= x_2 <= b_2, ..., a_n <= x_n <= b_n}, we divide R into fxyz sub-rectangles R_i1i2...in of equal width
+        ∆x_1 = (b_1-a_1)/fxyz, equal height ∆x_2 = (b_2-a_2)/m, ..., and equal depth ∆x_n = (b_n-a_n)/n. We choose sample
+        points (x_*i1i2...in) in each sub-rectangle and form the n-fold Riemann sum:
+
+        - R = fxyz∑i1=1 m∑i2=1 ... n∑in=1 f(x_*i1i2...in)∆x_1∆x_2...∆x_n
+
+        and take the limit of such sums as fxyz, m, n --> ∞ to obtain the n-fold integral of f over R:
+
+        - R = b_n∫a_n ... b_2∫a_2 b_1∫a_1 f(x_1, x_2, ..., x_n) dx_1 dx_2 ... dx_n = lim fxyz, m, n --> ∞
+            fxyz∑i1=1 m∑i2=1 ... n∑in=1 f(x_*i1i2...in)∆x_1∆x_2...∆x_n
+
+        In the special case where f(x_1, x_2, ..., x_n) > 0, the n-fold Riemann sum can be interpreted as the sum of the
+        volumes of the approximating rectangular boxes, and b_n∫a_n ... b_2∫a_2 b_1∫a_1 f(x_1, x_2, ..., x_n) dx_1 dx_2 ... dx_n
+        represents the volume under the surface z = f(x_1, x_2, ..., x_n) over the region R.
+
+        --------------------------------------------------------------------------------------------------------------------
+
         Args:
-            function: the function to be integrated over the region R and S
+            func: the function to be integrated over the region R and S
             variables: the variables of integration, default: x and y
             intervals: the set of tuples of the form (a, b) for the Region R and
-                          (c, d) for the Region S, default: [(0, -oo), (0, oo)]
+                            (c, d) for the Region S, default: [(0, -oo), (0, oo)]
+            **kwargs: type: the type of integral to be computed, default: double,
+
+                        method: the method of integration to be used, default: riemann_sum
+                        show_steps: whether to show the steps of the computation, default: False
+                        depth: the depth of the recursion, default: 0
+                        max_depth: the maximum depth of the recursion, default: 100
+                        max_steps: the maximum number of steps to be taken, default: 1000
+                        max_time: the maximum time to be taken, default: 10
+                        max_error: the maximum error to be tolerated, default: 0.001
+                        max_precision: the maximum precision to be used, default: 100
+                        max_terms: the maximum number of terms to be used in a series, default: 100
+
         """
         # initialize parameters in case they are None
-        if function is None:
-            function = [x ** 2 + y ** 2, x ** 2 + y ** 2]
+        if func is None:
+            func = [x ** 2 + y ** 2, x ** 2 + y ** 2]
         if variables is None:
             variables = [x, y]
         if intervals is None:
             intervals = [(0, -oo), (0, oo)]
-        self.functions.append(function)
+        self._type = kwargs.get("type", "double")
+        self.functions.append(func)
         self.variables = variables
         self.intervals = intervals
         # iterate over the interval for each variable
         for i in range(len(self.variables)):
             self.integrals.append(
                 Integral(
-                    function,
+                    func,
                     (self.variables[i], self.intervals[i][0], self.intervals[i][1])
                 )
             )
-            self.temp.append(Integral(function, variables[i]))
             temp = self.integrals[i].doit()
             self.results.append(temp)
-            function = temp
-            self.functions.append(function)
-        print(f"{'-' * 60}")
-        print(f"Variables of integration: {variables[0]} and {variables[1]}")
-        print(f"Intervals of integration:")
-        pprint(f"       {intervals[0][0]} <= {variables[0]} <= {intervals[0][1]}")
-        pprint(f"       {intervals[1][0]} <= {variables[1]} <= {intervals[1][1]}")
-        print()
-        print(f"Function: f({variables[0]}) = ")
-        pprint(self.functions[0], wrap_line=False)
-        print()
-        print(f"Function: f({variables[1]}) = ")
-        pprint(self.functions[1], wrap_line=False)
-        print("\n")
-        print(f"Integrations: \nfirst integrate by {variables[0]}:")
-        pprint(self.integrals[0], wrap_line=False)
-        print(f"then integrate by {variables[1]}:")
-        pprint(self.integrals[1], wrap_line=False)
-        print()
-        print(f"Anti-derivative with respect to {variables[0]}:")
-        pprint(self.temp[0].doit(), wrap_line=False)
-        print(f"Anti-derivative with respect to  {variables[1]}:")
-        pprint(self.temp[1].doit(), wrap_line=False)
-        print("\n")
-        print(f"Result with respect to {variables[0]}: ")
-        pprint(self.results[0], wrap_line=False)
-        print()
-        print(f"Result with respect to {variables[1]}: ")
-        pprint(self.results[1], wrap_line=False)
-        print(f"{'-' * 60}")
+            self.temp.append(Integral(func, variables[i]))
+            func = temp
+            self.functions.append(func)
+        # print the values
+        self.print_data()
 
     def __dict__(self):
         return {
@@ -262,7 +288,7 @@ class DoubleIntegral:
             "variables": self.variables,
             "intervals": self.intervals,
             "integrals": self.integrals,
-            "anti-derivatives": [self.integrals[0].doit(), self.integrals[1].doit()],
+            "anti-derivatives": [self.temp[0].doit(), self.temp[1].doit()],
             "results": [self.results[0], self.results[1]]
         }
 
@@ -271,3 +297,33 @@ class DoubleIntegral:
             self.__dict__(),
             default=lambda o: o.__dict__() if hasattr(o, '__dict__()') else o.__str__(),
             indent=4)
+
+    def print_data(self):
+        """
+        Prints the data for all integrals
+        """
+        print(f"{'-' * 70}")
+        print("Variables of integration Order: ", end="")
+        for i in range(len(self.variables)):
+            if i < len(self.variables) - 1:
+                print(f"{self.variables[i]}, ", end="")
+            else:
+                print(f"{self.variables[i]}")
+        print("Intervals of integration:")
+        for i in range(len(self.intervals)):
+            print(f"       {self.intervals[i][0]} <= {self.variables[i]} <= {self.intervals[i][1]}")
+        for i in range(len(self.variables)):
+            print("\nFunction: f(", end="")
+            print(f"{self.variables[i]}", end="")
+            print(") = \n")
+            pprint(self.functions[i], wrap_line=False)
+        for i in range(len(self.variables)):
+            print(f"\n\nIntegral with respect to {self.variables[i]}: \n")
+            pprint(self.integrals[i], wrap_line=False)
+        for i in range(len(self.variables)):
+            print(f"\n\nAnti-derivative with respect to {self.variables[i]}: \n")
+            pprint(self.temp[i].doit(), wrap_line=False)
+        for i in range(len(self.variables)):
+            print(f"\n\nResult with respect to {self.variables[i]}: \n")
+            pprint(self.results[i], wrap_line=False)
+        print(f"{'-' * 70}")
