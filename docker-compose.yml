@@ -1,0 +1,26 @@
+version: '3.7'
+
+networks:
+  calculus:
+    driver: bridge
+    ipam:
+      driver: default
+
+volumes:
+  calculus_data:
+    driver: local
+
+services:
+  app:
+     build:
+       context: .
+       dockerfile: .devcontainer/app.Dockerfile
+     volumes:
+       - ./src:/app
+     ports:
+      - 5000:5000
+     networks:
+       - calculus
+     healthcheck:  #curl -X POST -H "Content-Type: application/json" -d '{"message":"hello"}' http://localhost:5000/healthcheck
+       test: ["CMD", "curl", "-X", "POST", "-H", "Content-Type: application/json", "-d", "'{\"message\":\"healthcheck\"}'", "http://localhost:5000/healthcheck"]
+

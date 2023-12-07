@@ -8,7 +8,7 @@ import numpy as np
 from numpy import number
 from sympy import Number
 
-from src.point import Point
+from point import Point
 
 
 @dataclass

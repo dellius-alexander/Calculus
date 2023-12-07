@@ -1,0 +1,179 @@
+/* Reset everything in the DOM */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Style the body and center the form */
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  background-color: #f1f1f1;
+  padding-bottom: 20px;
+}
+
+/* Add padding to the container elements */
+/* Add padding to containers */
+.container {
+  margin: 0 auto;
+  padding: 16px;
+  background-color: white;
+  left: 0;
+  right: 0;
+  max-width: 80%;
+}
+
+/* Center form, center input fields and make them 50% screen width and full width for mobile devices */
+.form {
+  margin: 0 auto;
+  max-width: 60%;
+  left: 0;
+  right: 0;
+}
+/* Style inputs and link buttons */
+input[type=text] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+  text-align: center;
+}
+
+/* Add a background color when the inputs get focus */
+input[type=text]:focus {
+  background-color: #dfd;
+  outline: none;
+}
+
+
+
+/* center submit-btn */
+.submit-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 10px 20px;
+    max-width: 50%;
+    background-color: #2632e3;
+    border: none;
+    text-align: center;
+    position: absolute;
+}
+/* Add a background color to the submit button on hover */
+.submit-btn:hover {
+    background-color: #75e884;
+}
+
+
+.submit-btn-container {
+  display: block;
+  align-items: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+
+/* Clear floats */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.add-remove-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+.variables {
+  display: block;
+}
+
+.boundary {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: center;
+}
+
+.lower, .variable, .upper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+}
+
+/* Change styles for cancel button and signup button on extra small screens */
+@media screen and (max-width: 300px) {
+  .submit-btn {
+    width: 100%;
+  }
+}
+
+/* Change styles for cancel button and signup button on small screens */
+@media screen and (max-width: 600px) {
+  .submit-btn {
+    width: 100%;
+  }
+}
+
+/* Change styles for cancel button and signup button on medium screens */
+@media screen and (max-width: 768px) {
+  .container {
+  margin: 0 auto;
+  padding: 16px;
+  background-color: white;
+  left: 0;
+  right: 0;
+  max-width: 80%;
+}
+  .submit-btn {
+    width: 100%;
+  }
+}
+
+/* Change styles for cancel button and signup button on large screens */
+@media screen and (max-width: 992px) {
+  .submit-btn {
+    width: 60%;
+  }
+}
+
+/* Change styles for cancel button and signup button on extra large screens */
+@media screen and (max-width: 1200px) {
+  .container {
+  margin: 0 auto;
+  padding: 16px;
+  background-color: white;
+  left: 0;
+  right: 0;
+  max-width: 80%;
+}
+  .submit-btn {
+    width: 60%;
+    }
+  }
+
+/* Change styles for cancel button and signup button on extra extra large screens */
+@media screen and (max-width: 1400px) {
+  .container {
+  margin: 0 auto;
+  padding: 16px;
+  background-color: white;
+  left: 0;
+  right: 0;
+  max-width: 80%;
+}
+  .submit-btn {
+    width: 60%;
+  }
+}
+
+
+
+

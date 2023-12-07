@@ -2,6 +2,10 @@ import math
 from numpy import array
 from numpy.ma import count
 from sympy import factorint, divisors
+from fractions import Fraction
+from myLogger.logger import get_logger
+
+log = get_logger(__name__)
 
 
 class GCD(object):
@@ -11,11 +15,9 @@ class GCD(object):
     - Dividend = Divisor × Quotient
     
     """
+
     # constructor
-    def __init__(self, dividend=None or int, divisor=None or int, power=None or int):
-        self.dividend = None
-        self.divisor = None
-        self.pwr = None
+    def __init__(self, dividend=None, divisor=None, power=None):
         self.dividend = dividend
         self.divisor = divisor
         self.pwr = power
@@ -392,8 +394,8 @@ class GCD(object):
         x2 = v2[0]
         y2 = v2[1]
         print(f'\nKnuth Solutions set:\n[  X,  Y,  Z  ]')
-        print(f"""\n{v1} = ax + by = ({v1[2]}*{x1} + {v2[2]}*{y1}) = {(v1[2]*x1)+(v2[2]*y1)}""")
-        print(f"""\n{v2} = ax + by = ({v1[2]}*{x2} + {v2[2]}*{y2}) = {(v1[2]*x2)+(v2[2]*y2)}""")
+        print(f"""\n{v1} = ax + by = ({v1[2]}*{x1} + {v2[2]}*{y1}) = {(v1[2] * x1) + (v2[2] * y1)}""")
+        print(f"""\n{v2} = ax + by = ({v1[2]}*{x2} + {v2[2]}*{y2}) = {(v1[2] * x2) + (v2[2] * y2)}""")
         while z > 0:
             q = int(v1[2] // v2[2])
             v3 = v1 - q * v2
@@ -403,7 +405,7 @@ class GCD(object):
             y2 = v2[1]
             print(f"""\nq = {v1[2]} // {v2[2]} = {v1[2] // v2[2]}""")
             print(f'\n(({x1} - {q}*{x2}), ({y1} - {q}*{y2}), ({v1[2]} - {q}*{v2[2]}))'
-                  f' = ({x1 - q*x2}, {y1 - q*y2}, {v1[2] - q*v2[2]})')
+                  f' = ({x1 - q * x2}, {y1 - q * y2}, {v1[2] - q * v2[2]})')
 
             v1 = v2
             v2 = v3
@@ -970,14 +972,14 @@ class GCD(object):
             n = self.divisor
             phi = n - 1
         odr = []
-        prime_factors = [1]+self.get_keys(factorint((n-1)))+[phi]
+        prime_factors = [1] + self.get_keys(factorint((n - 1))) + [phi]
         print(prime_factors)
         for e in prime_factors:
             if pow(a, e, n) == 1:
                 odr.append(e)
                 # print(f'Found {e}')
         if odr.__len__() == 0:
-            for i in range(phi, n**n):
+            for i in range(phi, n ** n):
                 if pow(a, i, n) == 1:
                     odr.append(i)
                     # print(f'Found {i}')
@@ -1120,7 +1122,8 @@ class GCD(object):
         sol = []  # capture our solution set in a list
         for k in range(1, n + 1):
             if negation == 'n' or negation == '-n':
-                if self.gcd_euclid(a, n) == 1 and pow(a, k, n) != 1 and k != 1:    # find values congruent to a**k ≡ 1 (mod n)
+                if self.gcd_euclid(a, n) == 1 and pow(a, k,
+                                                      n) != 1 and k != 1:  # find values congruent to a**k ≡ 1 (mod n)
                     if (k >= phi) and (k % phi) == 0:  # k is a multiple of ord(a)
                         sol.append(k)
                         print(f'Found [h > phi]: {k}')
@@ -1129,7 +1132,8 @@ class GCD(object):
                         print(f'Found [phi > h]: {k}')
 
             elif negation is None:
-                if self.gcd_euclid(a, n) == 1 and pow(a, k, n) == 1 and k != 1:  # find values not-congruent to a**k !≡ 1 (mod n)
+                if self.gcd_euclid(a, n) == 1 and pow(a, k,
+                                                      n) == 1 and k != 1:  # find values not-congruent to a**k !≡ 1 (mod n)
                     if (k >= phi) and (k % phi) == 0:  # k is a multiple of ord(a)
                         sol.append(k)
                         # print(f'Found [h > phi]: {k}')
@@ -1176,7 +1180,7 @@ class GCD(object):
             prime_factors = self.get_keys(factorint(phi))
             p_f = prime_factors.copy()
             p_f.reverse()
-            list_of_divisors = [phi]+[(phi//k) for k in prime_factors]+[k for k in p_f]+[1]
+            list_of_divisors = [phi] + [(phi // k) for k in prime_factors] + [k for k in p_f] + [1]
             print(f'Factors of {phi}: {list_of_divisors}')
             # use each value in your list of factors to verify that a smaller value
             # exists than [ n - 1 ], that is congruent to 1 (mod n).  Proving that
@@ -1194,7 +1198,7 @@ class GCD(object):
             elif order.__len__() > 1:
                 return False, order, f'{n} is not prime'
             elif order.__len__() == 0:
-                inf = n**n
+                inf = n ** n
                 for k in range(1, inf):
                     if pow(ord, k, n) == 1:
                         order.append(k)
@@ -1235,9 +1239,9 @@ class GCD(object):
             # verify that: [ a ** ((n-1)/pi, ..., pn) !≡ 1 (mod n) ] is not
             # congruent to !≡ 1 (mod n) for every prime divisor [ pi, ..., pn ] of
             # [ n - 1 ].
-            if pow(a, (phi//k), n) != 1 and pow(a, phi, n) == 1:
+            if pow(a, (phi // k), n) != 1 and pow(a, phi, n) == 1:
                 sol.append(k)
-                print(f'Found: {a} ** ({phi}//{k}) ≡ {pow(a,(phi//k), n)} !≡ 1 (mod {n})')
+                print(f'Found: {a} ** ({phi}//{k}) ≡ {pow(a, (phi // k), n)} !≡ 1 (mod {n})')
         if sol.__len__() > 1:
             return f'{n} is not PRIME...!!!'
         else:
@@ -1323,8 +1327,17 @@ class GCD(object):
     ###############################################################################
 
 
+def reduce_fraction(numerator=25, denominator=40):
+    gcd = GCD(numerator, denominator, 0)
+    log.debug(f"""
+    numerator: {numerator}
+    denominator: {denominator}
+    gcd: {gcd.gcd()}
+    """)
+    return reduce_fraction(numerator // gcd.gcd(), denominator // gcd.gcd()) if gcd.gcd() > 1 else Fraction(numerator, denominator)
+
+
 if __name__ == "__main__":
-    
     ###############################################################################
     #   Enter values below you want to test:
     ###############################################################################
@@ -1334,9 +1347,12 @@ if __name__ == "__main__":
     z_quotient = 31
     remainder = 0
     ###############################################################################
+    print(reduce_fraction())
+    # reduce_fraction(409340641843325, 2251799813685248)
+
     ###############################################################################
-    gcd = GCD(y_m_dividend, x_n_divisor, e_pwr)
-    print(gcd.euclid())
+    # gcd = GCD(y_m_dividend, x_n_divisor, e_pwr)
+    # print(gcd.euclid())
     # print(gcd.euclid(y_m_dividend, x_n_divisor))
     # print(gcd.knuth())
     # gcd.knuth_verbose()
