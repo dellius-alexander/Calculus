@@ -8,3 +8,4 @@ tests/reports/**
 tests/screenshots/**
 !tests/screenshots
 tests/.pytest_cache
+**/logs/**
