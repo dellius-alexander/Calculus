@@ -45,7 +45,8 @@ class CustomTimedRotatingFileHandler(logging.handlers.TimedRotatingFileHandler):
 
         self.delete_old_files()
 
-    def delete_old_files(self):
+    @staticmethod
+    def delete_old_files():
         files = glob.glob("logs/*.log")
         print("files: ", files)
         files.sort(key=os.path.getmtime)
